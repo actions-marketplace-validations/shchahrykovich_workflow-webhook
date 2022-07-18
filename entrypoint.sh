@@ -104,6 +104,9 @@ if [ "$verify_ssl" = false ]; then
     options="$options -k"
 fi
 
+echo "Sending data:"
+echo "$WEBHOOK_DATA"
+
 curl $options \
     -H "Content-Type: $CONTENT_TYPE" \
     -H "User-Agent: GitHub-Hookshot/760256b" \
