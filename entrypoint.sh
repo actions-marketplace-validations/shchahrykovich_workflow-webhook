@@ -65,20 +65,22 @@ else
 
     CONTENT_TYPE="application/json"
 
-    if [ -n "$webhook_type" ] && [ "$webhook_type" == "json-extended" ]; then
-        RAW_FILE_DATA=`cat $GITHUB_EVENT_PATH`
-        WEBHOOK_DATA=$(echo -n "$RAW_FILE_DATA" | jq -c '')
-    else
-        WEBHOOK_DATA="{\"event\":\"$GITHUB_EVENT_NAME\",\"repository\":\"$GITHUB_REPOSITORY\",\"commit\":\"$GITHUB_SHA\",\"ref\":\"$GITHUB_REF\",\"head\":\"$GITHUB_HEAD_REF\",\"workflow\":\"$GITHUB_WORKFLOW\"}"
-    fi
+#     if [ -n "$webhook_type" ] && [ "$webhook_type" == "json-extended" ]; then
+#         RAW_FILE_DATA=`cat $GITHUB_EVENT_PATH`
+#         WEBHOOK_DATA=$(echo -n "$RAW_FILE_DATA" | jq -c '')
+#     else
+#         WEBHOOK_DATA="{\"event\":\"$GITHUB_EVENT_NAME\",\"repository\":\"$GITHUB_REPOSITORY\",\"commit\":\"$GITHUB_SHA\",\"ref\":\"$GITHUB_REF\",\"head\":\"$GITHUB_HEAD_REF\",\"workflow\":\"$GITHUB_WORKFLOW\"}"
+#     fi
     
-    JSON_WITH_OPEN_CLOSE_BRACKETS_STRIPPED=`echo "$WEBHOOK_DATA" | sed 's/^{\(.*\)}$/\1/'`
-    if [ -n "$data" ]; then
-        CUSTOM_JSON_DATA=$(echo -n "$data" | jq -c '')
-        WEBHOOK_DATA="{$JSON_WITH_OPEN_CLOSE_BRACKETS_STRIPPED,\"data\":$CUSTOM_JSON_DATA,\"requestID\":\"$REQUEST_ID\"}"
-    else
-        WEBHOOK_DATA="{$JSON_WITH_OPEN_CLOSE_BRACKETS_STRIPPED,\"requestID\":\"$REQUEST_ID\"}"
-    fi
+#     JSON_WITH_OPEN_CLOSE_BRACKETS_STRIPPED=`echo "$WEBHOOK_DATA" | sed 's/^{\(.*\)}$/\1/'`
+#     if [ -n "$data" ]; then
+#         CUSTOM_JSON_DATA=$(echo -n "$data" | jq -c '')
+#         WEBHOOK_DATA="{$JSON_WITH_OPEN_CLOSE_BRACKETS_STRIPPED,\"data\":$CUSTOM_JSON_DATA,\"requestID\":\"$REQUEST_ID\"}"
+#     else
+#         WEBHOOK_DATA="{$JSON_WITH_OPEN_CLOSE_BRACKETS_STRIPPED,\"requestID\":\"$REQUEST_ID\"}"
+#     fi
+    
+    WEBHOOK_DATA=$(echo -n "$data" | jq -c '')
 
 fi
 
