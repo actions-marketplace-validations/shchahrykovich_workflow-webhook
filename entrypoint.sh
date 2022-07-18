@@ -1,5 +1,11 @@
 #!/bin/bash
 
+
+
+if [ -f "./arguments.sh" ]; then
+    source ./arguments.sh
+fi
+
 urlencode() {
     local length="${#1}"
     for (( i = 0; i < length; i++ )); do
